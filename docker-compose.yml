@@ -1,0 +1,38 @@
+version: '3.8'
+
+services:
+  grafana:
+    image: grafana/grafana:latest
+    container_name: absences-grafana
+    ports:
+      - "3000:3000"
+    environment:
+      - GF_SECURITY_ADMIN_PASSWORD=${GRAFANA_ADMIN_PASSWORD}
+      - GF_INSTALL_PLUGINS=yesoreyeram-infinity-datasource
+      - GF_PLUGINS_ALLOW_LOADING_UNSIGNED_PLUGINS=yesoreyeram-infinity-datasource
+    volumes:
+      - grafana-data:/var/lib/grafana
+      - ./provisioning:/etc/grafana/provisioning
+      - ./dashboards:/var/lib/grafana/dashboards
+    restart: unless-stopped
+    networks:
+      - grafana-network
+
+  kimai-api-proxy:
+    build: ./api-proxy
+    container_name: kimai-api-proxy
+    ports:
+      - "8080:8080"
+    environment:
+      - KIMAI_URL=${KIMAI_URL}
+      - KIMAI_API_TOKEN=${KIMAI_API_TOKEN}
+    restart: unless-stopped
+    networks:
+      - grafana-network
+
+volumes:
+  grafana-data:
+
+networks:
+  grafana-network:
+    driver: bridge

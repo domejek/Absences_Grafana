@@ -1,0 +1,13 @@
+{
+    "name": "absences-grafana/api-proxy",
+    "description": "API Proxy for Kimai Absences",
+    "require": {
+        "php": ">=8.0",
+        "guzzlehttp/guzzle": "^7.0"
+    },
+    "autoload": {
+        "psr-4": {
+            "AbsencesGrafana\\": "src/"
+        }
+    }
+}

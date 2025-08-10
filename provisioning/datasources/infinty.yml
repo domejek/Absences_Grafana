@@ -1,0 +1,13 @@
+apiVersion: 1
+
+datasources:
+  - name: Kimai-Absences
+    type: yesoreyeram-infinity
+    access: proxy
+    url: http://kimai-api-proxy:8080
+    isDefault: true
+    jsonData:
+      auth_method: none
+      parser: json
+      root_selector: ""
+    secureJsonData: {}
